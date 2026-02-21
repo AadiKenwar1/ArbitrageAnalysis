@@ -126,7 +126,7 @@ Examples:
     # Step 1: Ingest data (optional)
     if args.fetch:
         run_command(
-            ["python", "backend/ingestor.py"],
+            ["python", "backend/pipeline/ingestor.py"],
             "Fetching data from Polymarket API",
             required=False
         )
@@ -139,7 +139,7 @@ Examples:
     # Step 2: Clean data
     if not args.skip_clean:
         clean_cmd = [
-            "python", "backend/cleaning.py",
+            "python", "backend/pipeline/cleaning.py",
             "--input", args.input_dataset
         ]
         run_command(clean_cmd, "Cleaning and normalizing data")
@@ -154,7 +154,7 @@ Examples:
     # Step 3: Detect dependencies
     if not args.skip_dependencies:
         run_command(
-            ["python", "backend/dependency_detector.py"],
+            ["python", "backend/pipeline/dependency_detector.py"],
             "Detecting market dependencies"
         )
     else:
@@ -165,7 +165,7 @@ Examples:
     
     # Step 4: Find arbitrage opportunities
     arbitrage_cmd = [
-        "python", "backend/arbitrage_detector.py",
+        "python", "backend/pipeline/arbitrage_detector.py",
         "--min-profit", str(args.min_profit),
         "--fee-rate", str(args.fee_rate),
         "--top-n", str(args.top_n)
